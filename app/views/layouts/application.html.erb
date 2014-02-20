@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-dark loginSignupBg">
+<head>
+<meta charset="utf-8" />
+<title>Export Tool</title>
+<meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+ <%= stylesheet_link_tag "application" %></head>
+<body>
+<section id="content" class="m-t-lg wrapper-md animated fadeInUp">
+  <div class="container aside-xxl"><a class="navbar-brand block" href="<%=url_for root_path%>">Export Tool</a>
+    <section class="panel panel-default bg-white m-t-lg">
+      <header class="panel-heading text-center"> <strong>
+      <%if params[:controller]=='devise/sessions' %>
+        Log In
+        <%elsif params[:controller]=='devise/registrations' %>
+         Registration
+         <%elsif params[:controller]=='devise/passwords' %>
+         Reset Password
+         <%end%>
+      </strong> 
+    </header>
+<%=yield%>
+       <div class="wrapper-lg">
+        <%if params[:controller]=='devise/sessions' %>  
+        <!--<a href="#" class="btn btn-facebook btn-block m-b-sm"><i class="fa fa-facebook pull-left"></i>Sign in with Facebook</a> <a href="#" class="btn btn-twitter btn-block"><i class="fa fa-twitter pull-left"></i>Sign in with Twitter</a>-->
+          <p class="text-muted text-center"><small>Do not have an account?</small></p>
+          <a href="<%=url_for new_user_registration_path%>" class="btn btn-default btn-block">Create an account</a>
+        <%end%>
+        <%if params[:controller]=='devise/registrations' || params[:controller]=='devise/passwords' %>
+          <p class="text-muted text-center"><small>Already have an account?</small></p>
+          <a href="<%=url_for new_user_session_path%>" class="btn btn-default btn-block">Log In</a>
+        <%end%>
+         </div>
+    </section>
+  </div>
+</section>
+<!-- footer -->
+<footer id="footer">
+  <div class="text-center padder">
+    <p>&copy; <%=Date.today.year%> All rights reserved Freshdesk  </small> </p>
+  </div>
+</footer>
+<!-- / footer --> <script src="js/application.js"></script> <!-- Bootstrap --> <!-- App -->
+</body>
+</html>

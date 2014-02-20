@@ -1,0 +1,232 @@
+<%#=link_to 'Get Users', get_users_customer_path(@project.id),:class=>"btn btn-sm btn-default"  %>
+
+<%=link_to 'Get Users', "#",:class=>"btn btn-sm btn-default", :onclick => "show_statusbar(#{@project.id},'customers/get_users')"  %>
+
+<%=link_to 'Get Cases', "#",:class=>"btn btn-sm btn-default", :onclick => "show_statusbar(#{@project.id},'cases')" %>
+
+<%=link_to 'Get Customers', "#",:class=>"btn btn-sm btn-default", :onclick => "show_statusbar(#{@project.id},'customers')"  %>
+
+<%#=link_to 'Get Groups', groups_path(:project_id=>"#{@project.id}"),:class=>"btn btn-sm btn-default", :onclick => "show_statusbar()" %>
+<%=link_to 'Get Groups', "#",:class=>"btn btn-sm btn-default", :onclick => "show_statusbar(#{@project.id},'groups')" %>
+<%=link_to 'Get Notes', "#",:class=>"btn btn-sm btn-default", :onclick => "show_statusbar(#{@project.id},'notes')"  %>
+
+<%=link_to 'Get Replies', "#",:class=>"btn btn-sm btn-default", :onclick => "show_statusbar(#{@project.id},'replies')"%>
+
+<%=link_to 'Get Attachments', "#",:class=>"btn btn-sm btn-default", :onclick => "show_statusbar(#{@project.id},'attachments')"%>
+
+<%=link_to 'Get Companies', "#",:class=>"btn btn-sm btn-default", :onclick => "show_statusbar(#{@project.id},'companies')"%>
+
+<%=link_to 'Get Facebook Users', "#",:class=>"btn btn-sm btn-default", :onclick => "show_statusbar(#{@project.id},'facebook_users')"%>
+
+<%=link_to 'Get Twitter Users', "#",:class=>"btn btn-sm btn-default", :onclick => "show_statusbar(#{@project.id},'twitter_users')"%>
+<div class="loadbar" style="display:none;">
+	<%=image_tag("loading.gif")%>
+	</div>
+<div class="download"></div>
+<div class="error"></div>
+<br>
+
+ <!--For CSV list box-->
+<% if @project.project_file %>
+<div class="row">       
+    <div class="col-lg-2-4">
+        <section class="panel panel-default CSVBox"> 
+            <div class="panel-body">
+          <!-- User csv -->
+            <h4>User</h4>
+            <h6>Last Downloaded at <%=@project.project_file.user_download_at%></h6>
+            <section class="scrollable CSVList">
+              <ul>
+                <%unless @project.project_file.csv_user.nil? %>
+                <% count = 0 %>
+                <% @project.project_file.csv_user.split(',').each do | user_link| %>
+                <li><%=link_to "#{user_link.split('/').last}", customer_path(@project.id,:get_user => true,:fetch =>count)%></li>
+                <% count = count +1 %>
+                <%end%>
+                <%end%>
+                </ul>
+            </section>
+            </div>
+        </section> 
+    </div>
+     <!--Customer  csv -->
+    <div class="col-lg-2-4">
+        <section class="panel panel-default CSVBox"> 
+            <div class="panel-body">
+            <h4>Customer</h4>
+            <h6>Last Downloaded at <%=@project.project_file.customer_download_at%></h6>
+            <section class="scrollable CSVList">
+              <ul>
+                <%unless @project.project_file.csv_customer.nil? %>
+                 <% count = 0 %>
+              <% @project.project_file.csv_customer.split(',').each do | user_link| %>
+              <li><%=link_to "#{user_link.split('/').last}", customer_path(@project.id,:fetch =>count)%></li>
+              <% count = count +1 %>
+              <%end%>
+              <%end%>
+                </ul>
+            </section>
+            </div>
+        </section> 
+    </div>
+    
+    <div class="col-lg-2-4">
+        <section class="panel panel-default CSVBox"> 
+            <div class="panel-body">
+            <h4>Case</h4>
+            <h6>Last Downloaded at <%=@project.project_file.case_download_at%></h6>
+            <section class="scrollable CSVList">
+              <ul>
+                <%unless @project.project_file.csv_case.nil? %>
+                 <% count = 0 %>
+            <% @project.project_file.csv_case.split(',').each do | user_link| %>
+            <li><%=link_to "#{user_link.split('/').last}", case_path(@project.id,:fetch =>count)%></li>
+            <% count = count +1 %>
+            <%end%>
+            <%end%>
+                </ul>
+            </section>
+            </div>
+        </section> 
+    </div>
+    
+    <div class="col-lg-2-4">
+        <section class="panel panel-default CSVBox"> 
+            <div class="panel-body">
+            <h4>Company</h4>
+            <h6>Last Downloaded at <%=@project.project_file.company_download_at%></h6>
+            <section class="scrollable CSVList">
+              <ul>
+                  <%unless @project.project_file.csv_company.nil? %>
+                 <% count = 0 %>
+                <% @project.project_file.csv_company.split(',').each do | user_link| %>
+                <li><%=link_to "#{user_link.split('/').last}", company_path(@project.id,:fetch =>count)%></li>
+                <% count = count +1 %>
+                 <%end%>
+                <%end%>
+                </ul>
+            </section>
+            </div>
+        </section> 
+    </div>
+    
+    <div class="col-lg-2-4">
+        <section class="panel panel-default CSVBox"> 
+            <div class="panel-body">
+            <h4>Group</h4>
+            <h6>Last Downloaded at <%=@project.project_file.group_download_at%></h6>
+            <section class="scrollable CSVList">
+              <ul>
+                   <%unless @project.project_file.csv_group.nil? %>
+                  <% count = 0 %>
+                <% @project.project_file.csv_group.split(',').each do | user_link| %>
+                <li><%=link_to "#{user_link.split('/').last}", group_path(@project.id,:fetch =>count)%></li>
+                <% count = count +1 %>
+                 <%end%>
+                <%end%>
+                </ul>
+            </section>
+            </div>
+        </section> 
+    </div>
+            
+<div class="col-lg-2-4">
+<section class="panel panel-default CSVBox"> 
+    <div class="panel-body">
+    <h4>Note</h4>
+    <h6>Last Downloaded at <%=@project.project_file.note_download_at%></h6>
+    <section class="scrollable CSVList">
+      <ul>
+            <%unless @project.project_file.csv_note.nil? %>
+              <% count = 0 %>
+            <% @project.project_file.csv_note.split(',').each do | user_link| %>
+            <li><%=link_to "#{user_link.split('/').last}", note_path(@project.id,:fetch =>count)%></li>
+            <% count = count +1 %>
+             <%end%>
+            <%end%>
+        </ul>
+    </section>
+    </div>
+</section> 
+</div>
+
+<div class="col-lg-2-4">
+<section class="panel panel-default CSVBox"> 
+    <div class="panel-body">
+    <h4>Reply</h4>
+    <h6>Last Downloaded at 15:00, 28 Jan 2014</h6>
+    <section class="scrollable CSVList">
+      <ul>
+        <%unless @project.project_file.csv_reply.nil? %>
+         <% count = 0 %>
+        <% @project.project_file.csv_reply.split(',').each do | reply_link| %>
+        <li><%=link_to "#{reply_link.split('/').last}", reply_path(@project.id,:fetch =>count)%></li>
+        <% count = count +1 %>
+         <%end%>
+        <%end%>
+        </ul>
+    </section>
+    </div>
+</section> 
+</div>
+
+<div class="col-lg-2-4">
+<section class="panel panel-default CSVBox"> 
+    <div class="panel-body">
+    <h4>Attachment</h4>
+    <h6>Last Downloaded at <%=@project.project_file.attachment_download_at%></h6>
+    <section class="scrollable CSVList">
+      <ul>
+         <%unless @project.project_file.csv_attachment.nil? %>
+          <% count = 0 %>
+        <% @project.project_file.csv_attachment.split(',').each do | attachment_link| %>
+        <li><%=link_to "#{attachment_link.split('/').last}", attachment_path(@project.id,:fetch =>count)%></li>
+        <% count = count +1 %>
+         <%end%>
+        <%end%>
+        </ul>
+    </section>
+    </div>
+</section> 
+</div>
+
+<div class="col-lg-2-4">
+<section class="panel panel-default CSVBox"> 
+    <div class="panel-body">
+    <h4>Facebook User</h4>
+    <h6>Last Downloaded at <%=@project.project_file.facebook_user_download_at%></h6>
+    <section class="scrollable CSVList">
+      <ul>
+    <%unless @project.project_file.csv_facebook.nil? %>
+    <% count = 0 %>
+    <% @project.project_file.csv_facebook.split(',').each do | user_link| %>
+    <li><%=link_to "#{user_link.split('/').last}", facebook_user_path(@project.id,:fetch =>count)%></li>
+    <% count = count +1 %>
+     <%end%>
+    <%end%>
+        </ul>
+    </section>
+    </div>
+</section> 
+</div>
+
+<div class="col-lg-2-4">
+<section class="panel panel-default CSVBox"> 
+    <div class="panel-body">
+    <h4>Twitter User</h4>
+    <h6>Last Downloaded at <%=@project.project_file.twitter_user_download_at%></h6>
+    <section class="scrollable CSVList">
+      <ul>
+        <%unless @project.project_file.csv_twitter.nil? %>
+         <% count = 0 %>
+        <% @project.project_file.csv_twitter.split(',').each do | twitter_link| %>
+        <li><%=link_to "#{twitter_link.split('/').last}", twitter_user_path(@project.id,:fetch =>count)%></li>
+        <% count = count +1 %>
+         <%end%>
+        <%end%>
+        </ul>
+    </section>
+    </div>
+</section> 
+</div>   
+<%end%> 

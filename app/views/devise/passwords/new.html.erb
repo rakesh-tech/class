@@ -1,0 +1,11 @@
+<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, :class =>"panel-body wrapper-lg" }) do |f| %> 
+  <div class="form-group">
+  <%= f.label :email%><br />
+  <div style="color:red;"><%=resource.errors[:email][0] if !resource.nil? && !resource.errors.empty? && !resource.errors[:email].empty?%>
+	</div> 
+  <%= f.email_field :email, :autofocus => true,:class=>"form-control input-lg" %></div>
+  <div><%= f.submit "Send me reset password instructions", :class=>"btn btn-primary"%></div>
+<% end %>
+ <!--<p style="text-align:center;"><%#=link_to "Back", new_user_session_path%></p>-->
+
+<%#= render "devise/shared/links" %>

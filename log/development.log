@@ -1,0 +1,1422 @@
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+  [1m[36m (119.8ms)[0m  [1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (216.7ms)[0m  CREATE UNIQUE INDEX `unique_schema_migrations` ON `schema_migrations` (`version`)
+  [1m[36m (17.1ms)[0m  [1mSELECT `schema_migrations`.`version` FROM `schema_migrations` [0m
+Migrating to CreateAccounts (20130827125144)
+  [1m[35m (93.6ms)[0m  CREATE TABLE `accounts` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (49.1ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20130827125144')[0m
+Migrating to DeviseCreateUsers (20131211152306)
+  [1m[35m (99.7ms)[0m  CREATE TABLE `users` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `email` varchar(255) DEFAULT '' NOT NULL, `encrypted_password` varchar(255) DEFAULT '' NOT NULL, `first_name` varchar(255), `last_name` varchar(255), `user_name` varchar(255), `reset_password_token` varchar(255), `reset_password_sent_at` datetime, `remember_created_at` datetime, `sign_in_count` int(11) DEFAULT 0, `current_sign_in_at` datetime, `last_sign_in_at` datetime, `current_sign_in_ip` varchar(255), `last_sign_in_ip` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (149.7ms)[0m  [1mCREATE UNIQUE INDEX `index_users_on_email` ON `users` (`email`)[0m
+  [1m[35m (149.5ms)[0m  CREATE UNIQUE INDEX `index_users_on_reset_password_token` ON `users` (`reset_password_token`)
+  [1m[36m (41.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20131211152306')[0m
+Migrating to CreateProjects (20131216100330)
+  [1m[35m (90.1ms)[0m  CREATE TABLE `projects` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `support_email` varchar(255), `subdomain` varchar(255), `consumer_key` varchar(255), `consumer_secret` varchar(255), `oauth_token` varchar(255), `oauth_token_secret` varchar(255), `user_id` varchar(255), `name` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (49.5ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20131216100330')[0m
+Migrating to CreateProjectFiles (20140102065155)
+  [1m[35m (90.6ms)[0m  CREATE TABLE `project_files` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `project_id` int(11), `csv_group` varchar(255), `csv_user` varchar(255), `csv_case` varchar(255), `csv_customer` varchar(255), `csv_note` varchar(255), `csv_reply` varchar(255), `csv_attachment` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (49.4ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20140102065155')[0m
+Migrating to AddCsvCompanyToProjectFiles (20140103094528)
+  [1m[35m (225.8ms)[0m  ALTER TABLE `project_files` ADD `csv_company` varchar(255)
+  [1m[36m (49.1ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20140103094528')[0m
+Migrating to AddCsvFacebookAndCsvTwitterToProjectFiles (20140106160125)
+  [1m[35m (224.7ms)[0m  ALTER TABLE `project_files` ADD `csv_facebook` varchar(255)
+  [1m[36m (184.0ms)[0m  [1mALTER TABLE `project_files` ADD `csv_twitter` varchar(255)[0m
+  [1m[35m (41.0ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20140106160125')
+Migrating to AddDownloadAtToAllFields (20140117132119)
+  [1m[36m (207.3ms)[0m  [1mALTER TABLE `project_files` ADD `company_download_at` datetime[0m
+  [1m[35m (208.9ms)[0m  ALTER TABLE `project_files` ADD `case_download_at` datetime
+  [1m[36m (217.3ms)[0m  [1mALTER TABLE `project_files` ADD `attachment_download_at` datetime[0m
+  [1m[35m (226.8ms)[0m  ALTER TABLE `project_files` ADD `customer_download_at` datetime
+  [1m[36m (217.5ms)[0m  [1mALTER TABLE `project_files` ADD `note_download_at` datetime[0m
+  [1m[35m (217.1ms)[0m  ALTER TABLE `project_files` ADD `reply_download_at` datetime
+  [1m[36m (250.6ms)[0m  [1mALTER TABLE `project_files` ADD `user_download_at` datetime[0m
+  [1m[35m (242.4ms)[0m  ALTER TABLE `project_files` ADD `facebook_user_download_at` datetime
+  [1m[36m (235.2ms)[0m  [1mALTER TABLE `project_files` ADD `twitter_user_download_at` datetime[0m
+  [1m[35m (242.3ms)[0m  ALTER TABLE `project_files` ADD `group_download_at` datetime
+  [1m[36m (41.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20140117132119')[0m
+Migrating to AddDataTypeToFields (20140120145834)
+  [1m[35m (212.4ms)[0m  ALTER TABLE `project_files` CHANGE `csv_user` `csv_user` text DEFAULT NULL
+  [1m[36m (205.8ms)[0m  [1mALTER TABLE `project_files` CHANGE `csv_case` `csv_case` text DEFAULT NULL[0m
+  [1m[35m (239.1ms)[0m  ALTER TABLE `project_files` CHANGE `csv_customer` `csv_customer` text DEFAULT NULL
+  [1m[36m (225.7ms)[0m  [1mALTER TABLE `project_files` CHANGE `csv_company` `csv_company` text DEFAULT NULL[0m
+  [1m[35m (205.7ms)[0m  ALTER TABLE `project_files` CHANGE `csv_group` `csv_group` text DEFAULT NULL
+  [1m[36m (230.9ms)[0m  [1mALTER TABLE `project_files` CHANGE `csv_note` `csv_note` text DEFAULT NULL[0m
+  [1m[35m (239.4ms)[0m  ALTER TABLE `project_files` CHANGE `csv_reply` `csv_reply` text DEFAULT NULL
+  [1m[36m (239.3ms)[0m  [1mALTER TABLE `project_files` CHANGE `csv_attachment` `csv_attachment` text DEFAULT NULL[0m
+  [1m[35m (225.0ms)[0m  ALTER TABLE `project_files` CHANGE `csv_twitter` `csv_twitter` text DEFAULT NULL
+  [1m[36m (239.4ms)[0m  [1mALTER TABLE `project_files` CHANGE `csv_facebook` `csv_facebook` text DEFAULT NULL[0m
+  [1m[35m (41.0ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20140120145834')
+  [1m[36m (0.4ms)[0m  [1mSELECT `schema_migrations`.`version` FROM `schema_migrations` [0m
+Connecting to database specified by database.yml
+  [1m[36m (1.4ms)[0m  [1mSELECT `schema_migrations`.`version` FROM `schema_migrations` [0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT 1 AS one FROM `users` WHERE `users`.`email` = BINARY 'test@test.com' LIMIT 1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM `users` WHERE `users`.`email` = BINARY 'test@test.com' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO `users` (`created_at`, `current_sign_in_at`, `current_sign_in_ip`, `email`, `encrypted_password`, `first_name`, `last_name`, `last_sign_in_at`, `last_sign_in_ip`, `remember_created_at`, `reset_password_sent_at`, `reset_password_token`, `sign_in_count`, `updated_at`, `user_name`) VALUES ('2014-01-30 07:13:36', NULL, NULL, 'test@test.com', '$2a$10$2J71rGA8.PBb2Eizwym6Mu8FtD/4u1FIjqLbHl6Y05UZP7Ix/92Qu', 'Test', 'User', NULL, NULL, NULL, NULL, NULL, 0, '2014-01-30 07:13:36', 'testuser')[0m
+  [1m[35m (49.5ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `projects` (`consumer_key`, `consumer_secret`, `created_at`, `name`, `oauth_token`, `oauth_token_secret`, `subdomain`, `support_email`, `updated_at`, `user_id`) VALUES ('nYJHVLoGO1mhYLhasANY', 'psd9nRU9tyA10MJJzaOv4wAGxXYGguke8IWE1r1I', '2014-01-30 07:13:36', 'Sample Project', 'v3gFJqa2uiucLtjUaPKM', 'HJyg92LNG5gbwWeR7l1jRDGQQBcHLvFs3jSiq2j1', 'https://testtech.desk.com', 'test@test.com', '2014-01-30 07:13:36', 1)
+  [1m[36m (41.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO `projects` (`consumer_key`, `consumer_secret`, `created_at`, `name`, `oauth_token`, `oauth_token_secret`, `subdomain`, `support_email`, `updated_at`, `user_id`) VALUES ('9Cy4lMXfPWaWZ3BQfw7d', 'Tz3Ve3vRauMCcUABW1JRJGobTxoCp2Q4zlExKr9H', '2014-01-30 07:13:36', 'Test Project', 'YkhfCVu4V6iWLhkxKA9c', 'DIecd6C98qChzC0nJ1z6G2YfoqVlwp3cuuSO3ZRr', 'https://dsfsdf.desk.com', 'sathiyarajr@techaffinity.com', '2014-01-30 07:13:36', 1)[0m
+  [1m[35m (39.1ms)[0m  COMMIT
+Connecting to database specified by database.yml
+
+
+Started GET "/" for 127.0.0.1 at 2014-01-30 12:44:49 +0530
+Processing by ProjectsController#index as HTML
+Completed 401 Unauthorized in 13ms
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2014-01-30 12:44:50 +0530
+Processing by Devise::SessionsController#new as HTML
+  Rendered devise/sessions/new.html.erb within layouts/application (16.8ms)
+Compiled style.css  (0ms)  (pid 3269)
+Compiled attachments.css  (61ms)  (pid 3269)
+Compiled notes.css  (1ms)  (pid 3269)
+Compiled replies.css  (1ms)  (pid 3269)
+Compiled application.css  (78ms)  (pid 3269)
+Completed 200 OK in 313ms (Views: 269.2ms | ActiveRecord: 2.1ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-30 12:44:50 +0530
+Served asset /application.css - 200 OK (7ms)
+
+
+Started GET "/assets/attachments.css?body=1" for 127.0.0.1 at 2014-01-30 12:44:50 +0530
+Served asset /attachments.css - 200 OK (1ms)
+
+
+Started GET "/assets/notes.css?body=1" for 127.0.0.1 at 2014-01-30 12:44:50 +0530
+Served asset /notes.css - 200 OK (1ms)
+
+
+Started GET "/assets/font.css?body=1" for 127.0.0.1 at 2014-01-30 12:44:50 +0530
+Served asset /font.css - 200 OK (1ms)
+
+
+Started GET "/assets/replies.css?body=1" for 127.0.0.1 at 2014-01-30 12:44:50 +0530
+Served asset /replies.css - 200 OK (1ms)
+
+
+Started GET "/assets/style.css?body=1" for 127.0.0.1 at 2014-01-30 12:44:50 +0530
+Served asset /style.css - 200 OK (2ms)
+
+
+Started GET "/users/js/application.js" for 127.0.0.1 at 2014-01-30 12:44:50 +0530
+
+ActionController::RoutingError (No route matches [GET] "/users/js/application.js"):
+  actionpack (3.2.13) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (3.2.13) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.13) lib/rails/rack/logger.rb:32:in `call_app'
+  railties (3.2.13) lib/rails/rack/logger.rb:16:in `block in call'
+  activesupport (3.2.13) lib/active_support/tagged_logging.rb:22:in `tagged'
+  railties (3.2.13) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.13) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.5) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.5) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.13) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.5) lib/rack/lock.rb:15:in `call'
+  actionpack (3.2.13) lib/action_dispatch/middleware/static.rb:63:in `call'
+  railties (3.2.13) lib/rails/engine.rb:479:in `call'
+  railties (3.2.13) lib/rails/application.rb:223:in `call'
+  rack (1.4.5) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.13) lib/rails/rack/log_tailer.rb:17:in `call'
+  rack (1.4.5) lib/rack/handler/webrick.rb:59:in `service'
+  /home/rakesh/.rvm/rubies/ruby-1.9.3-p448/lib/ruby/1.9.1/webrick/httpserver.rb:138:in `service'
+  /home/rakesh/.rvm/rubies/ruby-1.9.3-p448/lib/ruby/1.9.1/webrick/httpserver.rb:94:in `run'
+  /home/rakesh/.rvm/rubies/ruby-1.9.3-p448/lib/ruby/1.9.1/webrick/server.rb:191:in `block in start_thread'
+
+
+  Rendered /home/rakesh/.rvm/gems/ruby-1.9.3-p448@rails3.2/gems/actionpack-3.2.13/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (1.2ms)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2014-01-30 12:45:23 +0530
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"2zXjCxrFT3wMZyF+9Tgb6hEfsCSV0XDd0UicIg6AEZ8=", "user"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}, "commit"=>"Sign in"}
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'test@test.com' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.6ms)[0m  [1mUPDATE `users` SET `last_sign_in_at` = '2014-01-30 07:15:23', `current_sign_in_at` = '2014-01-30 07:15:23', `last_sign_in_ip` = '127.0.0.1', `current_sign_in_ip` = '127.0.0.1', `sign_in_count` = 1, `updated_at` = '2014-01-30 07:15:23' WHERE `users`.`id` = 1[0m
+  [1m[35m (50.0ms)[0m  COMMIT
+Redirected to http://localhost:3000/
+Completed 302 Found in 250ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2014-01-30 12:45:23 +0530
+Processing by ProjectsController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mProject Load (0.6ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`user_id` = 1
+  Rendered projects/index.html.erb within layouts/project (55.3ms)
+Compiled jquery.js  (2ms)  (pid 3269)
+Compiled jquery_ujs.js  (0ms)  (pid 3269)
+Compiled attachments.js  (80ms)  (pid 3269)
+Compiled notes.js  (1ms)  (pid 3269)
+Compiled project.js  (0ms)  (pid 3269)
+Compiled replies.js  (0ms)  (pid 3269)
+Compiled application.js  (166ms)  (pid 3269)
+Completed 200 OK in 324ms (Views: 274.0ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-30 12:45:24 +0530
+Served asset /application.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/attachments.css?body=1" for 127.0.0.1 at 2014-01-30 12:45:24 +0530
+Served asset /attachments.css - 304 Not Modified (3ms)
+
+
+Started GET "/assets/font.css?body=1" for 127.0.0.1 at 2014-01-30 12:45:24 +0530
+Served asset /font.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/replies.css?body=1" for 127.0.0.1 at 2014-01-30 12:45:24 +0530
+Served asset /replies.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/notes.css?body=1" for 127.0.0.1 at 2014-01-30 12:45:24 +0530
+Served asset /notes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/style.css?body=1" for 127.0.0.1 at 2014-01-30 12:45:24 +0530
+Served asset /style.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/attachments.js?body=1" for 127.0.0.1 at 2014-01-30 12:45:24 +0530
+Served asset /attachments.js - 200 OK (2ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-30 12:45:24 +0530
+Served asset /jquery.js - 200 OK (4ms)
+
+
+Started GET "/assets/notes.js?body=1" for 127.0.0.1 at 2014-01-30 12:45:24 +0530
+Served asset /notes.js - 200 OK (1ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-30 12:45:24 +0530
+Served asset /jquery_ujs.js - 200 OK (1ms)
+
+
+Started GET "/assets/project.js?body=1" for 127.0.0.1 at 2014-01-30 12:45:24 +0530
+Served asset /project.js - 200 OK (1ms)
+
+
+Started GET "/assets/replies.js?body=1" for 127.0.0.1 at 2014-01-30 12:45:24 +0530
+Served asset /replies.js - 200 OK (1ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-30 12:45:24 +0530
+Served asset /application.js - 200 OK (6ms)
+
+
+Started GET "/assets/fontawesome-webfontba72.woff?v=4.0.3" for 127.0.0.1 at 2014-01-30 12:45:24 +0530
+Served asset /fontawesome-webfontba72.woff - 200 OK (3ms)
+
+
+Started GET "/projects/new" for 127.0.0.1 at 2014-01-30 12:46:32 +0530
+Processing by ProjectsController#new as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  Rendered projects/new.html.erb within layouts/project (2.7ms)
+Completed 200 OK in 29ms (Views: 26.3ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-30 12:46:33 +0530
+Served asset /application.css - 304 Not Modified (13ms)
+
+
+Started GET "/assets/attachments.css?body=1" for 127.0.0.1 at 2014-01-30 12:46:33 +0530
+Served asset /attachments.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/font.css?body=1" for 127.0.0.1 at 2014-01-30 12:46:33 +0530
+Served asset /font.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/style.css?body=1" for 127.0.0.1 at 2014-01-30 12:46:33 +0530
+Served asset /style.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/notes.css?body=1" for 127.0.0.1 at 2014-01-30 12:46:33 +0530
+Served asset /notes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/replies.css?body=1" for 127.0.0.1 at 2014-01-30 12:46:33 +0530
+Served asset /replies.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-30 12:46:33 +0530
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/project.js?body=1" for 127.0.0.1 at 2014-01-30 12:46:33 +0530
+Served asset /project.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/attachments.js?body=1" for 127.0.0.1 at 2014-01-30 12:46:33 +0530
+Served asset /attachments.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/notes.js?body=1" for 127.0.0.1 at 2014-01-30 12:46:33 +0530
+Served asset /notes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-30 12:46:33 +0530
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/replies.js?body=1" for 127.0.0.1 at 2014-01-30 12:46:33 +0530
+Served asset /replies.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-30 12:46:33 +0530
+Served asset /application.js - 304 Not Modified (1ms)
+
+
+Started POST "/projects" for 127.0.0.1 at 2014-01-30 12:46:57 +0530
+Processing by ProjectsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"gjDEmIwLijEV0Fl79sJ+NWYVFonWUOgum5S0utmRL+Y=", "project"=>{"name"=>"new project", "support_email"=>"new@test.com", "subdomain"=>"", "consumer_key"=>"", "consumer_secret"=>"", "oauth_token"=>"", "oauth_token_secret"=>""}}
+  [1m[35mUser Load (0.2ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  Rendered projects/new.html.erb within layouts/project (0.6ms)
+Completed 200 OK in 25ms (Views: 16.4ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-30 12:46:57 +0530
+Served asset /application.css - 304 Not Modified (9ms)
+
+
+Started GET "/assets/attachments.css?body=1" for 127.0.0.1 at 2014-01-30 12:46:57 +0530
+Served asset /attachments.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/font.css?body=1" for 127.0.0.1 at 2014-01-30 12:46:57 +0530
+Served asset /font.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/style.css?body=1" for 127.0.0.1 at 2014-01-30 12:46:57 +0530
+Served asset /style.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/notes.css?body=1" for 127.0.0.1 at 2014-01-30 12:46:57 +0530
+Served asset /notes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/replies.css?body=1" for 127.0.0.1 at 2014-01-30 12:46:57 +0530
+Served asset /replies.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-30 12:46:57 +0530
+Served asset /jquery_ujs.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/attachments.js?body=1" for 127.0.0.1 at 2014-01-30 12:46:57 +0530
+Served asset /attachments.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-30 12:46:57 +0530
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/notes.js?body=1" for 127.0.0.1 at 2014-01-30 12:46:57 +0530
+Served asset /notes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/project.js?body=1" for 127.0.0.1 at 2014-01-30 12:46:57 +0530
+Served asset /project.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/replies.js?body=1" for 127.0.0.1 at 2014-01-30 12:46:57 +0530
+Served asset /replies.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-30 12:46:57 +0530
+Served asset /application.js - 304 Not Modified (1ms)
+
+
+Started GET "/projects" for 127.0.0.1 at 2014-01-30 12:47:08 +0530
+Processing by ProjectsController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mProject Load (0.1ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`user_id` = 1
+  Rendered projects/index.html.erb within layouts/project (2.3ms)
+Completed 200 OK in 21ms (Views: 18.3ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-30 12:47:08 +0530
+Served asset /application.css - 304 Not Modified (17ms)
+
+
+Started GET "/assets/font.css?body=1" for 127.0.0.1 at 2014-01-30 12:47:08 +0530
+Served asset /font.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/notes.css?body=1" for 127.0.0.1 at 2014-01-30 12:47:08 +0530
+Served asset /notes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/attachments.css?body=1" for 127.0.0.1 at 2014-01-30 12:47:08 +0530
+Served asset /attachments.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/replies.css?body=1" for 127.0.0.1 at 2014-01-30 12:47:08 +0530
+Served asset /replies.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/style.css?body=1" for 127.0.0.1 at 2014-01-30 12:47:08 +0530
+Served asset /style.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/replies.js?body=1" for 127.0.0.1 at 2014-01-30 12:47:08 +0530
+Served asset /replies.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-30 12:47:08 +0530
+Served asset /jquery.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-30 12:47:08 +0530
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/attachments.js?body=1" for 127.0.0.1 at 2014-01-30 12:47:08 +0530
+Served asset /attachments.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/notes.js?body=1" for 127.0.0.1 at 2014-01-30 12:47:08 +0530
+Served asset /notes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/project.js?body=1" for 127.0.0.1 at 2014-01-30 12:47:08 +0530
+Served asset /project.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-30 12:47:08 +0530
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/projects/new" for 127.0.0.1 at 2014-01-30 12:52:32 +0530
+Processing by ProjectsController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  Rendered projects/new.html.erb within layouts/project (0.7ms)
+Completed 200 OK in 21ms (Views: 18.9ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-30 12:52:32 +0530
+Served asset /application.css - 304 Not Modified (7ms)
+
+
+Started GET "/assets/attachments.css?body=1" for 127.0.0.1 at 2014-01-30 12:52:32 +0530
+Served asset /attachments.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/font.css?body=1" for 127.0.0.1 at 2014-01-30 12:52:32 +0530
+Served asset /font.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/notes.css?body=1" for 127.0.0.1 at 2014-01-30 12:52:32 +0530
+Served asset /notes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/replies.css?body=1" for 127.0.0.1 at 2014-01-30 12:52:32 +0530
+Served asset /replies.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/style.css?body=1" for 127.0.0.1 at 2014-01-30 12:52:32 +0530
+Served asset /style.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-30 12:52:32 +0530
+Served asset /jquery_ujs.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-30 12:52:32 +0530
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/attachments.js?body=1" for 127.0.0.1 at 2014-01-30 12:52:32 +0530
+Served asset /attachments.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/notes.js?body=1" for 127.0.0.1 at 2014-01-30 12:52:32 +0530
+Served asset /notes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/replies.js?body=1" for 127.0.0.1 at 2014-01-30 12:52:32 +0530
+Served asset /replies.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/project.js?body=1" for 127.0.0.1 at 2014-01-30 12:52:32 +0530
+Served asset /project.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-30 12:52:32 +0530
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/projects" for 127.0.0.1 at 2014-01-30 12:53:48 +0530
+Processing by ProjectsController#index as HTML
+  [1m[35mUser Load (0.2ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mProject Load (0.1ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`user_id` = 1[0m
+  Rendered projects/index.html.erb within layouts/project (2.2ms)
+Completed 200 OK in 19ms (Views: 17.5ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-30 12:53:48 +0530
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/attachments.css?body=1" for 127.0.0.1 at 2014-01-30 12:53:48 +0530
+Served asset /attachments.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/font.css?body=1" for 127.0.0.1 at 2014-01-30 12:53:48 +0530
+Served asset /font.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/style.css?body=1" for 127.0.0.1 at 2014-01-30 12:53:48 +0530
+Served asset /style.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/replies.css?body=1" for 127.0.0.1 at 2014-01-30 12:53:48 +0530
+Served asset /replies.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/notes.css?body=1" for 127.0.0.1 at 2014-01-30 12:53:48 +0530
+Served asset /notes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-30 12:53:48 +0530
+Served asset /jquery.js - 304 Not Modified (4ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-30 12:53:48 +0530
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/notes.js?body=1" for 127.0.0.1 at 2014-01-30 12:53:48 +0530
+Served asset /notes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/project.js?body=1" for 127.0.0.1 at 2014-01-30 12:53:48 +0530
+Served asset /project.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/replies.js?body=1" for 127.0.0.1 at 2014-01-30 12:53:48 +0530
+Served asset /replies.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/attachments.js?body=1" for 127.0.0.1 at 2014-01-30 12:53:48 +0530
+Served asset /attachments.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-30 12:53:48 +0530
+Served asset /application.js - 304 Not Modified (1ms)
+
+
+Started GET "/projects/new" for 127.0.0.1 at 2014-01-30 12:53:53 +0530
+Processing by ProjectsController#new as HTML
+  [1m[35mUser Load (0.1ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  Rendered projects/new.html.erb within layouts/project (1.0ms)
+Completed 200 OK in 21ms (Views: 20.0ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-30 12:53:53 +0530
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/attachments.css?body=1" for 127.0.0.1 at 2014-01-30 12:53:53 +0530
+Served asset /attachments.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/font.css?body=1" for 127.0.0.1 at 2014-01-30 12:53:53 +0530
+Served asset /font.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/replies.css?body=1" for 127.0.0.1 at 2014-01-30 12:53:53 +0530
+Served asset /replies.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/notes.css?body=1" for 127.0.0.1 at 2014-01-30 12:53:53 +0530
+Served asset /notes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/style.css?body=1" for 127.0.0.1 at 2014-01-30 12:53:53 +0530
+Served asset /style.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-30 12:53:53 +0530
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-30 12:53:53 +0530
+Served asset /jquery.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/attachments.js?body=1" for 127.0.0.1 at 2014-01-30 12:53:53 +0530
+Served asset /attachments.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/notes.js?body=1" for 127.0.0.1 at 2014-01-30 12:53:53 +0530
+Served asset /notes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/project.js?body=1" for 127.0.0.1 at 2014-01-30 12:53:53 +0530
+Served asset /project.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/replies.js?body=1" for 127.0.0.1 at 2014-01-30 12:53:53 +0530
+Served asset /replies.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-30 12:53:53 +0530
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/projects" for 127.0.0.1 at 2014-01-30 12:56:49 +0530
+Processing by ProjectsController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mProject Load (0.1ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`user_id` = 1
+  Rendered projects/index.html.erb within layouts/project (2.1ms)
+Completed 200 OK in 54ms (Views: 51.9ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-30 12:56:49 +0530
+Served asset /application.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/attachments.css?body=1" for 127.0.0.1 at 2014-01-30 12:56:49 +0530
+Served asset /attachments.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/font.css?body=1" for 127.0.0.1 at 2014-01-30 12:56:49 +0530
+Served asset /font.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/replies.css?body=1" for 127.0.0.1 at 2014-01-30 12:56:49 +0530
+Served asset /replies.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/notes.css?body=1" for 127.0.0.1 at 2014-01-30 12:56:49 +0530
+Served asset /notes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/style.css?body=1" for 127.0.0.1 at 2014-01-30 12:56:49 +0530
+Served asset /style.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-30 12:56:49 +0530
+Served asset /jquery.js - 304 Not Modified (8ms)
+
+
+Started GET "/assets/replies.js?body=1" for 127.0.0.1 at 2014-01-30 12:56:49 +0530
+Served asset /replies.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-30 12:56:49 +0530
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/attachments.js?body=1" for 127.0.0.1 at 2014-01-30 12:56:49 +0530
+Served asset /attachments.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/notes.js?body=1" for 127.0.0.1 at 2014-01-30 12:56:49 +0530
+Served asset /notes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/project.js?body=1" for 127.0.0.1 at 2014-01-30 12:56:49 +0530
+Served asset /project.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-30 12:56:49 +0530
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/projects/1" for 127.0.0.1 at 2014-01-30 12:56:50 +0530
+Processing by ProjectsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mProject Load (0.3ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`id` = 1 LIMIT 1
+  [1m[36mProjectFile Load (0.4ms)[0m  [1mSELECT `project_files`.* FROM `project_files` WHERE `project_files`.`project_id` = 1 LIMIT 1[0m
+  Rendered projects/show.html.erb within layouts/project (38.2ms)
+Completed 200 OK in 68ms (Views: 61.9ms | ActiveRecord: 2.6ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-30 12:56:51 +0530
+Served asset /application.css - 304 Not Modified (2ms)
+
+
+Started GET "/assets/attachments.css?body=1" for 127.0.0.1 at 2014-01-30 12:56:51 +0530
+Served asset /attachments.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/font.css?body=1" for 127.0.0.1 at 2014-01-30 12:56:51 +0530
+Served asset /font.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/notes.css?body=1" for 127.0.0.1 at 2014-01-30 12:56:51 +0530
+Served asset /notes.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/replies.css?body=1" for 127.0.0.1 at 2014-01-30 12:56:51 +0530
+Served asset /replies.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/style.css?body=1" for 127.0.0.1 at 2014-01-30 12:56:51 +0530
+Served asset /style.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-30 12:56:51 +0530
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-30 12:56:51 +0530
+Served asset /jquery.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/attachments.js?body=1" for 127.0.0.1 at 2014-01-30 12:56:51 +0530
+Served asset /attachments.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/project.js?body=1" for 127.0.0.1 at 2014-01-30 12:56:51 +0530
+Served asset /project.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/replies.js?body=1" for 127.0.0.1 at 2014-01-30 12:56:51 +0530
+Served asset /replies.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/notes.js?body=1" for 127.0.0.1 at 2014-01-30 12:56:51 +0530
+Served asset /notes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-30 12:56:51 +0530
+Served asset /application.js - 304 Not Modified (40ms)
+
+
+Started GET "/assets/loading.gif" for 127.0.0.1 at 2014-01-30 12:56:51 +0530
+Served asset /loading.gif - 200 OK (3ms)
+
+
+Started GET "/customers?project_id=1" for 127.0.0.1 at 2014-01-30 12:56:53 +0530
+Processing by CustomersController#index as JSON
+  Parameters: {"project_id"=>"1"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mProject Load (0.1ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`id` = 1 LIMIT 1[0m
+Completed 200 OK in 1542ms (Views: 0.4ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/projects" for 127.0.0.1 at 2014-01-30 12:56:59 +0530
+Processing by ProjectsController#index as HTML
+  [1m[35mUser Load (0.2ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mProject Load (0.1ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`user_id` = 1[0m
+  Rendered projects/index.html.erb within layouts/project (4.8ms)
+Completed 200 OK in 30ms (Views: 28.4ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-30 12:56:59 +0530
+Served asset /application.css - 304 Not Modified (2ms)
+
+
+Started GET "/assets/attachments.css?body=1" for 127.0.0.1 at 2014-01-30 12:56:59 +0530
+Served asset /attachments.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/font.css?body=1" for 127.0.0.1 at 2014-01-30 12:56:59 +0530
+Served asset /font.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/replies.css?body=1" for 127.0.0.1 at 2014-01-30 12:56:59 +0530
+Served asset /replies.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/style.css?body=1" for 127.0.0.1 at 2014-01-30 12:56:59 +0530
+Served asset /style.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/notes.css?body=1" for 127.0.0.1 at 2014-01-30 12:56:59 +0530
+Served asset /notes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-30 12:56:59 +0530
+Served asset /jquery_ujs.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/notes.js?body=1" for 127.0.0.1 at 2014-01-30 12:56:59 +0530
+Served asset /notes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/attachments.js?body=1" for 127.0.0.1 at 2014-01-30 12:56:59 +0530
+Served asset /attachments.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/project.js?body=1" for 127.0.0.1 at 2014-01-30 12:56:59 +0530
+Served asset /project.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-30 12:56:59 +0530
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/replies.js?body=1" for 127.0.0.1 at 2014-01-30 12:56:59 +0530
+Served asset /replies.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-30 12:56:59 +0530
+Served asset /application.js - 304 Not Modified (1ms)
+
+
+Started GET "/projects/new" for 127.0.0.1 at 2014-01-30 12:57:02 +0530
+Processing by ProjectsController#new as HTML
+  [1m[35mUser Load (0.2ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  Rendered projects/new.html.erb within layouts/project (0.5ms)
+Completed 200 OK in 17ms (Views: 15.0ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-30 12:57:02 +0530
+Served asset /application.css - 304 Not Modified (48ms)
+
+
+Started GET "/assets/font.css?body=1" for 127.0.0.1 at 2014-01-30 12:57:02 +0530
+Served asset /font.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/attachments.css?body=1" for 127.0.0.1 at 2014-01-30 12:57:02 +0530
+Served asset /attachments.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/notes.css?body=1" for 127.0.0.1 at 2014-01-30 12:57:02 +0530
+Served asset /notes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/style.css?body=1" for 127.0.0.1 at 2014-01-30 12:57:02 +0530
+Served asset /style.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/replies.css?body=1" for 127.0.0.1 at 2014-01-30 12:57:02 +0530
+Served asset /replies.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-30 12:57:02 +0530
+Served asset /jquery.js - 304 Not Modified (5ms)
+
+
+Started GET "/assets/attachments.js?body=1" for 127.0.0.1 at 2014-01-30 12:57:02 +0530
+Served asset /attachments.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-30 12:57:02 +0530
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/project.js?body=1" for 127.0.0.1 at 2014-01-30 12:57:02 +0530
+Served asset /project.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/notes.js?body=1" for 127.0.0.1 at 2014-01-30 12:57:02 +0530
+Served asset /notes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/replies.js?body=1" for 127.0.0.1 at 2014-01-30 12:57:02 +0530
+Served asset /replies.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-30 12:57:02 +0530
+Served asset /application.js - 304 Not Modified (1ms)
+
+
+Started POST "/projects" for 127.0.0.1 at 2014-01-30 12:58:03 +0530
+Processing by ProjectsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"gjDEmIwLijEV0Fl79sJ+NWYVFonWUOgum5S0utmRL+Y=", "project"=>{"name"=>"testing", "support_email"=>"test@testing.com", "subdomain"=>"https://testtec.desk.com", "consumer_key"=>"WrBYxHXDhmypXDAEPFlQ", "consumer_secret"=>"1uJt0Jp4yx6TmxTzQyw4JJMgLGqMBuDDiF1KCIIm", "oauth_token"=>"mkErdq2kvw40JJd8DnQg", "oauth_token_secret"=>"MT6i5ZbIW8FYOUs0IVnYdoddLAGmrvM2j8zw5AOQ"}}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO `projects` (`consumer_key`, `consumer_secret`, `created_at`, `name`, `oauth_token`, `oauth_token_secret`, `subdomain`, `support_email`, `updated_at`, `user_id`) VALUES ('WrBYxHXDhmypXDAEPFlQ', '1uJt0Jp4yx6TmxTzQyw4JJMgLGqMBuDDiF1KCIIm', '2014-01-30 07:28:03', 'testing', 'mkErdq2kvw40JJd8DnQg', 'MT6i5ZbIW8FYOUs0IVnYdoddLAGmrvM2j8zw5AOQ', 'https://testtec.desk.com', 'test@testing.com', '2014-01-30 07:28:03', 1)[0m
+  [1m[35m (80.0ms)[0m  COMMIT
+Redirected to http://localhost:3000/projects
+Completed 302 Found in 87ms (ActiveRecord: 80.7ms)
+
+
+Started GET "/projects" for 127.0.0.1 at 2014-01-30 12:58:04 +0530
+Processing by ProjectsController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mProject Load (0.5ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`user_id` = 1
+  Rendered projects/index.html.erb within layouts/project (6.4ms)
+Completed 200 OK in 25ms (Views: 22.4ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-30 12:58:04 +0530
+Served asset /application.css - 304 Not Modified (2ms)
+
+
+Started GET "/assets/style.css?body=1" for 127.0.0.1 at 2014-01-30 12:58:04 +0530
+Served asset /style.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/attachments.css?body=1" for 127.0.0.1 at 2014-01-30 12:58:04 +0530
+Served asset /attachments.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/replies.css?body=1" for 127.0.0.1 at 2014-01-30 12:58:04 +0530
+Served asset /replies.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/notes.css?body=1" for 127.0.0.1 at 2014-01-30 12:58:04 +0530
+Served asset /notes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/font.css?body=1" for 127.0.0.1 at 2014-01-30 12:58:04 +0530
+Served asset /font.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/attachments.js?body=1" for 127.0.0.1 at 2014-01-30 12:58:04 +0530
+Served asset /attachments.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-30 12:58:04 +0530
+Served asset /jquery.js - 304 Not Modified (5ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-30 12:58:04 +0530
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/replies.js?body=1" for 127.0.0.1 at 2014-01-30 12:58:04 +0530
+Served asset /replies.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/project.js?body=1" for 127.0.0.1 at 2014-01-30 12:58:04 +0530
+Served asset /project.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/notes.js?body=1" for 127.0.0.1 at 2014-01-30 12:58:04 +0530
+Served asset /notes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-30 12:58:04 +0530
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/projects/3" for 127.0.0.1 at 2014-01-30 12:58:12 +0530
+Processing by ProjectsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mProject Load (0.4ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`id` = 3 LIMIT 1
+  [1m[36mProjectFile Load (0.3ms)[0m  [1mSELECT `project_files`.* FROM `project_files` WHERE `project_files`.`project_id` = 3 LIMIT 1[0m
+  Rendered projects/show.html.erb within layouts/project (3.0ms)
+Completed 200 OK in 22ms (Views: 18.9ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-30 12:58:12 +0530
+Served asset /application.css - 304 Not Modified (7ms)
+
+
+Started GET "/assets/font.css?body=1" for 127.0.0.1 at 2014-01-30 12:58:12 +0530
+Served asset /font.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/attachments.css?body=1" for 127.0.0.1 at 2014-01-30 12:58:12 +0530
+Served asset /attachments.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/notes.css?body=1" for 127.0.0.1 at 2014-01-30 12:58:12 +0530
+Served asset /notes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/replies.css?body=1" for 127.0.0.1 at 2014-01-30 12:58:12 +0530
+Served asset /replies.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/style.css?body=1" for 127.0.0.1 at 2014-01-30 12:58:12 +0530
+Served asset /style.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-30 12:58:12 +0530
+Served asset /jquery.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-30 12:58:12 +0530
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/attachments.js?body=1" for 127.0.0.1 at 2014-01-30 12:58:12 +0530
+Served asset /attachments.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/replies.js?body=1" for 127.0.0.1 at 2014-01-30 12:58:12 +0530
+Served asset /replies.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/notes.js?body=1" for 127.0.0.1 at 2014-01-30 12:58:12 +0530
+Served asset /notes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/project.js?body=1" for 127.0.0.1 at 2014-01-30 12:58:12 +0530
+Served asset /project.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-30 12:58:12 +0530
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/projects" for 127.0.0.1 at 2014-01-30 13:03:03 +0530
+Processing by ProjectsController#index as HTML
+  [1m[35mUser Load (0.2ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mProject Load (0.2ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`user_id` = 1[0m
+  Rendered projects/index.html.erb within layouts/project (2.7ms)
+Completed 200 OK in 20ms (Views: 18.2ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-30 13:03:03 +0530
+Served asset /application.css - 304 Not Modified (7ms)
+
+
+Started GET "/assets/attachments.css?body=1" for 127.0.0.1 at 2014-01-30 13:03:03 +0530
+Served asset /attachments.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/font.css?body=1" for 127.0.0.1 at 2014-01-30 13:03:03 +0530
+Served asset /font.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/notes.css?body=1" for 127.0.0.1 at 2014-01-30 13:03:03 +0530
+Served asset /notes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/replies.css?body=1" for 127.0.0.1 at 2014-01-30 13:03:03 +0530
+Served asset /replies.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/style.css?body=1" for 127.0.0.1 at 2014-01-30 13:03:03 +0530
+Served asset /style.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-30 13:03:03 +0530
+Served asset /jquery.js - 304 Not Modified (9ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-30 13:03:03 +0530
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/notes.js?body=1" for 127.0.0.1 at 2014-01-30 13:03:03 +0530
+Served asset /notes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/attachments.js?body=1" for 127.0.0.1 at 2014-01-30 13:03:03 +0530
+Served asset /attachments.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/replies.js?body=1" for 127.0.0.1 at 2014-01-30 13:03:03 +0530
+Served asset /replies.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/project.js?body=1" for 127.0.0.1 at 2014-01-30 13:03:03 +0530
+Served asset /project.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-30 13:03:03 +0530
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/projects/3" for 127.0.0.1 at 2014-01-30 13:03:06 +0530
+Processing by ProjectsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mProject Load (0.1ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`id` = 3 LIMIT 1[0m
+  [1m[35mProjectFile Load (0.2ms)[0m  SELECT `project_files`.* FROM `project_files` WHERE `project_files`.`project_id` = 3 LIMIT 1
+  Rendered projects/show.html.erb within layouts/project (1.5ms)
+Completed 200 OK in 19ms (Views: 16.1ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-30 13:03:06 +0530
+Served asset /application.css - 304 Not Modified (6ms)
+
+
+Started GET "/assets/attachments.css?body=1" for 127.0.0.1 at 2014-01-30 13:03:06 +0530
+Served asset /attachments.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/replies.css?body=1" for 127.0.0.1 at 2014-01-30 13:03:06 +0530
+Served asset /replies.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/font.css?body=1" for 127.0.0.1 at 2014-01-30 13:03:06 +0530
+Served asset /font.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/notes.css?body=1" for 127.0.0.1 at 2014-01-30 13:03:06 +0530
+Served asset /notes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/style.css?body=1" for 127.0.0.1 at 2014-01-30 13:03:06 +0530
+Served asset /style.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/loading.gif" for 127.0.0.1 at 2014-01-30 13:03:06 +0530
+Served asset /loading.gif - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-30 13:03:06 +0530
+Served asset /jquery.js - 304 Not Modified (6ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-30 13:03:06 +0530
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/notes.js?body=1" for 127.0.0.1 at 2014-01-30 13:03:06 +0530
+Served asset /notes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/attachments.js?body=1" for 127.0.0.1 at 2014-01-30 13:03:06 +0530
+Served asset /attachments.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/project.js?body=1" for 127.0.0.1 at 2014-01-30 13:03:06 +0530
+Served asset /project.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/replies.js?body=1" for 127.0.0.1 at 2014-01-30 13:03:06 +0530
+Served asset /replies.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-30 13:03:06 +0530
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/groups?project_id=3" for 127.0.0.1 at 2014-01-30 13:09:01 +0530
+Processing by GroupsController#index as JSON
+  Parameters: {"project_id"=>"3"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mProject Load (0.1ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`id` = 3 LIMIT 1
+Connecting to database specified by database.yml
+  [1m[36mProject Load (1.6ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`id` = 3 LIMIT 1[0m
+  [1m[35mProjectFile Load (0.2ms)[0m  SELECT `project_files`.* FROM `project_files` WHERE `project_files`.`project_id` = 3 LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO `project_files` (`attachment_download_at`, `case_download_at`, `company_download_at`, `created_at`, `csv_attachment`, `csv_case`, `csv_company`, `csv_customer`, `csv_facebook`, `csv_group`, `csv_note`, `csv_reply`, `csv_twitter`, `csv_user`, `customer_download_at`, `facebook_user_download_at`, `group_download_at`, `note_download_at`, `project_id`, `reply_download_at`, `twitter_user_download_at`, `updated_at`, `user_download_at`) VALUES (NULL, NULL, NULL, '2014-01-30 07:40:31', NULL, NULL, NULL, NULL, NULL, '/home/rakesh/freshdesktool/tmp/testing_group_1.csv,/home/rakesh/freshdesktool/tmp/testing_group_2.csv,/home/rakesh/freshdesktool/tmp/testing_group_3.csv,/home/rakesh/freshdesktool/tmp/testing_group_4.csv,/home/rakesh/freshdesktool/tmp/testing_group_5.csv,/home/rakesh/freshdesktool/tmp/testing_group_6.csv', NULL, NULL, NULL, NULL, NULL, NULL, '2014-01-30 07:40:31', NULL, 3, NULL, NULL, '2014-01-30 07:40:31', NULL)
+  [1m[36m (53.1ms)[0m  [1mCOMMIT[0m
+Completed 200 OK in 90509ms (Views: 0.5ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/projects/3" for 127.0.0.1 at 2014-01-30 13:10:31 +0530
+Processing by ProjectsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mProject Load (0.1ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`id` = 3 LIMIT 1
+  [1m[36mProjectFile Load (0.5ms)[0m  [1mSELECT `project_files`.* FROM `project_files` WHERE `project_files`.`project_id` = 3 LIMIT 1[0m
+  Rendered projects/show.html.erb within layouts/project (25.5ms)
+Completed 200 OK in 80ms (Views: 74.8ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-30 13:10:32 +0530
+Served asset /application.css - 304 Not Modified (12ms)
+
+
+Started GET "/assets/attachments.css?body=1" for 127.0.0.1 at 2014-01-30 13:10:32 +0530
+Served asset /attachments.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/font.css?body=1" for 127.0.0.1 at 2014-01-30 13:10:32 +0530
+Served asset /font.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/notes.css?body=1" for 127.0.0.1 at 2014-01-30 13:10:32 +0530
+Served asset /notes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/style.css?body=1" for 127.0.0.1 at 2014-01-30 13:10:32 +0530
+Served asset /style.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/replies.css?body=1" for 127.0.0.1 at 2014-01-30 13:10:32 +0530
+Served asset /replies.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/loading.gif" for 127.0.0.1 at 2014-01-30 13:10:32 +0530
+Served asset /loading.gif - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-30 13:10:32 +0530
+Served asset /jquery.js - 304 Not Modified (11ms)
+
+
+Started GET "/assets/project.js?body=1" for 127.0.0.1 at 2014-01-30 13:10:32 +0530
+Served asset /project.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/attachments.js?body=1" for 127.0.0.1 at 2014-01-30 13:10:32 +0530
+Served asset /attachments.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-30 13:10:32 +0530
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/notes.js?body=1" for 127.0.0.1 at 2014-01-30 13:10:32 +0530
+Served asset /notes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/replies.js?body=1" for 127.0.0.1 at 2014-01-30 13:10:32 +0530
+Served asset /replies.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-30 13:10:32 +0530
+Served asset /application.js - 304 Not Modified (1ms)
+
+
+Started GET "/groups/3?fetch=1" for 127.0.0.1 at 2014-01-30 13:13:32 +0530
+Processing by GroupsController#show as HTML
+  Parameters: {"fetch"=>"1", "id"=>"3"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mProject Load (0.1ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`id` = 3 LIMIT 1[0m
+  [1m[35mProjectFile Load (0.2ms)[0m  SELECT `project_files`.* FROM `project_files` WHERE `project_files`.`project_id` = 3 LIMIT 1
+Sent file /home/rakesh/freshdesktool/tmp/testing_group_2.csv (0.1ms)
+Completed 200 OK in 4ms (ActiveRecord: 0.5ms)
+Connecting to database specified by database.yml
+
+
+Started GET "/groups/3?fetch=2" for 127.0.0.1 at 2014-01-30 13:23:06 +0530
+Processing by GroupsController#show as HTML
+  Parameters: {"fetch"=>"2", "id"=>"3"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mProject Load (0.1ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`id` = 3 LIMIT 1
+  [1m[36mProjectFile Load (0.2ms)[0m  [1mSELECT `project_files`.* FROM `project_files` WHERE `project_files`.`project_id` = 3 LIMIT 1[0m
+Sent file /home/rakesh/freshdesktool/tmp/testing_group_3.csv (0.1ms)
+Completed 200 OK in 3ms (ActiveRecord: 0.5ms)
+
+
+Started GET "/customers/3/get_users" for 127.0.0.1 at 2014-01-30 13:26:51 +0530
+Processing by CustomersController#get_users as JSON
+  Parameters: {"id"=>"3"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mProject Load (0.1ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`id` = 3 LIMIT 1[0m
+Connecting to database specified by database.yml
+  [1m[36mProject Load (1.6ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`id` = 3 LIMIT 1[0m
+  [1m[35mProjectFile Load (0.2ms)[0m  SELECT `project_files`.* FROM `project_files` WHERE `project_files`.`project_id` = 3 LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.6ms)[0m  UPDATE `project_files` SET `csv_user` = '/home/rakesh/freshdesktool/tmp/testing_user_1.csv', `user_download_at` = '2014-01-30 07:56:58', `updated_at` = '2014-01-30 07:56:58' WHERE `project_files`.`id` = 1
+  [1m[36m (73.7ms)[0m  [1mCOMMIT[0m
+Completed 200 OK in 7362ms (Views: 0.3ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/projects/3" for 127.0.0.1 at 2014-01-30 13:26:58 +0530
+Processing by ProjectsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mProject Load (0.1ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`id` = 3 LIMIT 1[0m
+  [1m[35mProjectFile Load (0.4ms)[0m  SELECT `project_files`.* FROM `project_files` WHERE `project_files`.`project_id` = 3 LIMIT 1
+  Rendered projects/show.html.erb within layouts/project (4.5ms)
+Completed 200 OK in 22ms (Views: 19.9ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-30 13:26:58 +0530
+Served asset /application.css - 304 Not Modified (2ms)
+
+
+Started GET "/assets/attachments.css?body=1" for 127.0.0.1 at 2014-01-30 13:26:58 +0530
+Served asset /attachments.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/font.css?body=1" for 127.0.0.1 at 2014-01-30 13:26:58 +0530
+Served asset /font.css - 304 Not Modified (2ms)
+
+
+Started GET "/assets/notes.css?body=1" for 127.0.0.1 at 2014-01-30 13:26:58 +0530
+Served asset /notes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/style.css?body=1" for 127.0.0.1 at 2014-01-30 13:26:58 +0530
+Served asset /style.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/replies.css?body=1" for 127.0.0.1 at 2014-01-30 13:26:58 +0530
+Served asset /replies.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/loading.gif" for 127.0.0.1 at 2014-01-30 13:26:58 +0530
+Served asset /loading.gif - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-30 13:26:58 +0530
+Served asset /jquery_ujs.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-30 13:26:58 +0530
+Served asset /jquery.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/notes.js?body=1" for 127.0.0.1 at 2014-01-30 13:26:58 +0530
+Served asset /notes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/attachments.js?body=1" for 127.0.0.1 at 2014-01-30 13:26:58 +0530
+Served asset /attachments.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/project.js?body=1" for 127.0.0.1 at 2014-01-30 13:26:58 +0530
+Served asset /project.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/replies.js?body=1" for 127.0.0.1 at 2014-01-30 13:26:58 +0530
+Served asset /replies.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-30 13:26:58 +0530
+Served asset /application.js - 304 Not Modified (1ms)
+
+
+Started GET "/groups?project_id=3" for 127.0.0.1 at 2014-01-30 13:47:09 +0530
+Processing by GroupsController#index as JSON
+  Parameters: {"project_id"=>"3"}
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mProject Load (0.2ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`id` = 3 LIMIT 1
+Connecting to database specified by database.yml
+  [1m[36mProject Load (1.6ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`id` = 3 LIMIT 1[0m
+  [1m[35mProjectFile Load (0.2ms)[0m  SELECT `project_files`.* FROM `project_files` WHERE `project_files`.`project_id` = 3 LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.6ms)[0m  UPDATE `project_files` SET `group_download_at` = '2014-01-30 08:18:47', `updated_at` = '2014-01-30 08:18:47' WHERE `project_files`.`id` = 1
+  [1m[36m (66.2ms)[0m  [1mCOMMIT[0m
+Completed 200 OK in 97687ms (Views: 0.3ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/projects/3" for 127.0.0.1 at 2014-01-30 13:48:47 +0530
+Processing by ProjectsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mProject Load (0.1ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`id` = 3 LIMIT 1
+  [1m[36mProjectFile Load (0.3ms)[0m  [1mSELECT `project_files`.* FROM `project_files` WHERE `project_files`.`project_id` = 3 LIMIT 1[0m
+  Rendered projects/show.html.erb within layouts/project (3.1ms)
+Completed 200 OK in 55ms (Views: 53.1ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-30 13:48:47 +0530
+Served asset /application.css - 304 Not Modified (12ms)
+
+
+Started GET "/assets/attachments.css?body=1" for 127.0.0.1 at 2014-01-30 13:48:47 +0530
+Served asset /attachments.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/notes.css?body=1" for 127.0.0.1 at 2014-01-30 13:48:47 +0530
+Served asset /notes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/replies.css?body=1" for 127.0.0.1 at 2014-01-30 13:48:47 +0530
+Served asset /replies.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/font.css?body=1" for 127.0.0.1 at 2014-01-30 13:48:47 +0530
+Served asset /font.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/style.css?body=1" for 127.0.0.1 at 2014-01-30 13:48:47 +0530
+Served asset /style.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/attachments.js?body=1" for 127.0.0.1 at 2014-01-30 13:48:47 +0530
+Served asset /attachments.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/project.js?body=1" for 127.0.0.1 at 2014-01-30 13:48:47 +0530
+Served asset /project.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-30 13:48:47 +0530
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/notes.js?body=1" for 127.0.0.1 at 2014-01-30 13:48:47 +0530
+Served asset /notes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-30 13:48:47 +0530
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/replies.js?body=1" for 127.0.0.1 at 2014-01-30 13:48:47 +0530
+Served asset /replies.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-30 13:48:47 +0530
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/loading.gif" for 127.0.0.1 at 2014-01-30 13:48:47 +0530
+Served asset /loading.gif - 304 Not Modified (0ms)
+
+
+Started GET "/groups/3?fetch=0" for 127.0.0.1 at 2014-01-30 13:51:07 +0530
+Processing by GroupsController#show as HTML
+  Parameters: {"fetch"=>"0", "id"=>"3"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mProject Load (0.2ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`id` = 3 LIMIT 1[0m
+  [1m[35mProjectFile Load (0.2ms)[0m  SELECT `project_files`.* FROM `project_files` WHERE `project_files`.`project_id` = 3 LIMIT 1
+Sent file /home/rakesh/freshdesktool/tmp/testing_group_1.csv (0.1ms)
+Completed 200 OK in 6ms (ActiveRecord: 0.6ms)
+Connecting to database specified by database.yml
+
+
+Started GET "/" for 127.0.0.1 at 2014-01-30 15:26:25 +0530
+Processing by ProjectsController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mProject Load (0.3ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`user_id` = 1
+  Rendered projects/index.html.erb within layouts/project (72.3ms)
+Completed 200 OK in 316ms (Views: 203.3ms | ActiveRecord: 2.5ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-30 15:26:26 +0530
+Served asset /application.css - 200 OK (15ms)
+
+
+Started GET "/assets/notes.css?body=1" for 127.0.0.1 at 2014-01-30 15:26:26 +0530
+Served asset /notes.css - 200 OK (1ms)
+
+
+Started GET "/assets/attachments.css?body=1" for 127.0.0.1 at 2014-01-30 15:26:26 +0530
+Served asset /attachments.css - 200 OK (1ms)
+
+
+Started GET "/assets/font.css?body=1" for 127.0.0.1 at 2014-01-30 15:26:26 +0530
+Served asset /font.css - 200 OK (1ms)
+
+
+Started GET "/assets/replies.css?body=1" for 127.0.0.1 at 2014-01-30 15:26:26 +0530
+Served asset /replies.css - 200 OK (1ms)
+
+
+Started GET "/assets/style.css?body=1" for 127.0.0.1 at 2014-01-30 15:26:26 +0530
+Served asset /style.css - 200 OK (2ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-30 15:26:26 +0530
+Served asset /jquery.js - 200 OK (5ms)
+
+
+Started GET "/assets/notes.js?body=1" for 127.0.0.1 at 2014-01-30 15:26:26 +0530
+Served asset /notes.js - 200 OK (1ms)
+
+
+Started GET "/assets/attachments.js?body=1" for 127.0.0.1 at 2014-01-30 15:26:26 +0530
+Served asset /attachments.js - 200 OK (1ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-30 15:26:26 +0530
+Served asset /jquery_ujs.js - 200 OK (1ms)
+
+
+Started GET "/assets/project.js?body=1" for 127.0.0.1 at 2014-01-30 15:26:26 +0530
+Served asset /project.js - 200 OK (1ms)
+
+
+Started GET "/assets/replies.js?body=1" for 127.0.0.1 at 2014-01-30 15:26:26 +0530
+Served asset /replies.js - 200 OK (1ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-30 15:26:26 +0530
+Served asset /application.js - 200 OK (6ms)
+
+
+Started GET "/assets/fontawesome-webfontba72.woff?v=4.0.3" for 127.0.0.1 at 2014-01-30 15:26:26 +0530
+Served asset /fontawesome-webfontba72.woff - 200 OK (1ms)

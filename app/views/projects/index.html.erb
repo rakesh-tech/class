@@ -1,0 +1,24 @@
+<div class="table-responsive">
+<table class="table table-striped b-t b-light text-sm">
+  <thead>
+    <tr>
+      <th class="th-sortable" data-toggle="class">Project <span class="th-sort"> <i class="fa fa-sort-down text"></i> <i class="fa fa-sort-up text-active"></i> <i class="fa fa-sort"></i> </span> </th>
+      <th>Task</th>
+      <th width="30"></th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  	<%unless @user_projects.nil? %>
+  	  <% @user_projects.each do |project|%>
+    <tr>
+      <td><%=link_to "#{project.name}", project_path(project) %></td>
+      <td><%=project.created_at.strftime("%d/%m/%Y")%></td>
+      <td><%=link_to "Edit", edit_project_path(project) %></td>
+      <td><%=link_to "Delete", project_path(project), :confirm => "Are you sure", :method => :delete %></td>
+    </tr>
+    <%end%>
+    <%end%>
+  </tbody>
+</table>
+</div>

@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="col-sm-6">
+    <section class="panel panel-default">
+      <header class="panel-heading">Create Project</header>
+      <div class="panel-body">
+        <%=form_tag(projects_path) do %>
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" placeholder="Name" class="form-control" name="project[name]">
+            <div style="color:red;"><%=@errors[:name][0] if !@errors.nil? && !@errors[:name].nil?%></div>
+          </div>
+          <div class="form-group">
+            <label>Support Email</label>
+            <input type="text" placeholder="Support Email" class="form-control" name="project[support_email]">
+            <div style="color:red;"><%=@errors[:support_email][0] if !@errors.nil? && !@errors[:support_email].nil?%></div>
+          </div>
+          <div class="form-group">
+            <label>Sub Domain</label>
+            <input type="text"  placeholder="Sub Domain" class="form-control" name="project[subdomain]">
+            <div style="color:red;"><%=@errors[:subdomain][0] if !@errors.nil? && !@errors[:subdomain].nil?%></div>
+          </div>
+          <div class="form-group">
+            <label>Consumer Key</label>
+            <input type="text"  placeholder="Consumer Key" class="form-control" name="project[consumer_key]">
+            <div style="color:red;"><%=@errors[:consumer_key][0] if !@errors.nil? && !@errors[:consumer_key].nil?%></div>
+          </div>
+          <div class="form-group">
+            <label>Consumer Secret</label>
+            <input type="text"  placeholder="Consumer Secret" class="form-control" name="project[consumer_secret]">
+            <div style="color:red;"><%=@errors[:consumer_secret][0] if !@errors.nil? && !@errors[:consumer_secret].nil?%></div>
+          </div>
+          <div class="form-group">
+            <label>Oauth Token</label>
+            <input type="text"  placeholder="Oauth Token" class="form-control" name="project[oauth_token]">
+            <div style="color:red;"><%=@errors[:oauth_token][0] if !@errors.nil? && !@errors[:oauth_token].nil?%></div>
+          </div>
+          <div class="form-group">
+            <label>Oauth Token Secret</label>
+            <input type="text"  placeholder="Oauth Token Secret" class="form-control" name="project[oauth_token_secret]">
+            <div style="color:red;"><%=@errors[:oauth_token_secret][0] if !@errors.nil? && !@errors[:oauth_token_secret].nil?%></div>
+          </div>                     
+          
+          <button type="submit" class="btn btn-sm btn-default">Create</button>
+        <%end%>
+      </div>
+    </section>
+  </div>
